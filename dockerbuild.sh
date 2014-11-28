@@ -4,6 +4,8 @@ export PATH=$PATH:/usr/local/bin
 echo Cleaning...
 rm -rf ./dist
 
+bower install
+
 echo Building app
 grunt
 
