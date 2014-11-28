@@ -1,6 +1,6 @@
 export PATH=$PATH:/usr/local/bin
 #!/bin/bash
-
+npm install -g grunt-cli
 echo Cleaning...
 rm -rf ./dist
 
