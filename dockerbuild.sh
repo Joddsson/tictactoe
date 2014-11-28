@@ -1,7 +1,5 @@
 export PATH=$PATH:/usr/local/bin
 #!/bin/bash
-
-
 echo Cleaning...
 rm -rf ./dist
 
