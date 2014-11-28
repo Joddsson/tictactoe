@@ -18,5 +18,4 @@ npm install --production
 
 echo Building docker image
 docker build -t joddsson/tictactoe .
-
 echo "Done"
