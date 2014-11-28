@@ -1,3 +1,4 @@
+export PATH=$PATH:/usr/local/bin
 #!/bin/bash
 
 echo Cleaning...
