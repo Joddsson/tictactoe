@@ -8,6 +8,7 @@ echo Cleaning...
 rm -rf ./dist
 
 bower install
+npm install
 
 echo Building app
 grunt
