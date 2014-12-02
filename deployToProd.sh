@@ -2,7 +2,7 @@
 echo "in deploy script"
 docker push joddsson/tictactoe
 
-ssh -o StrictHostKeyChecking=no root@178.62.248.172 '
+ssh root@178.62.225.199 '
 echo "Successful ssh"
 
 docker kill tictactoe
