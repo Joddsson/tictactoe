@@ -8,16 +8,14 @@ module.exports = function(history){
 				"WonGame": function(cmd){
 					return [{
 						event: "GameWon",
-						user: cmd.user,
-						name: cmd.name,
+						winner: cmd.winner,
 						timeStamp: cmd.timeStamp
 					}]
 				},
 				"DrawGame": function(cmd){
 					return [{
 						event: "GameDraw",
-						user: cmd.user,
-						name: cmd.name,
+						winner: cmd.winner,
 						timeStamp: cmd.timeStamp
 					}]
 				}

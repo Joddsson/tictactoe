@@ -8,22 +8,24 @@ describe('User won a game', function(){
 		var when	= 
 		{
 			cmd: "WonGame",
-			user: {
+			winner: {
 				userName: "Joddsson"
 			},
-			name: "GameWon",
-			timestamp: "2014-12-02T11:29:29"
+			timeStamp: "2014-12-02T11:29:29"
 		};
-		var then	=
-		{
-			cmd: "WonGame",
-			user: {
-				userName: "Joddsson"
-			},
-			name: "GameWon",
-			timestamp: "2014-12-02T11:29:29"
-		}
+		var then	= [
+			{
+				event: "GameWon",
+				winner: {
+					userName: "Joddsson"
+				},
+				timeStamp: "2014-12-02T11:29:29"
+			}
+		]
 		var actualEvents = tictactoe(given).executeCommand(when);
-		should(actualEvents.length).be.exactly(1); 
+		
+		// Asserting that a winner was registerd.
+		should(actualEvents.length).be.exactly(1);
+		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then)); 
 	});
 }); 
