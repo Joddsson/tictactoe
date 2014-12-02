@@ -1,3 +1,15 @@
 var _ = require('lodash');
 
-console.log("No need for me yet!");
+module.exports = function(history){
+	var gameFull = false;
+	_.each(history, function(event){
+		if(event.event === "GameJoined"){
+			gameFull = true;
+		}
+	});
+	return {
+		gameFull: function(){
+			return gameFull;			
+		}
+	}
+};
