@@ -33,4 +33,47 @@ describe('Join game command', function(){
 		var actualEvents = tictactoe(given).executeCommand(when);
 		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
 	});
+
+	it('should emit GameFullJoinAttempted event if game is full', function(){
+		var given 	= [
+			{
+				event: "GameCreated",
+				user: {
+					userName: "joddsson"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29"
+			},
+			{
+				event: "GameJoined",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29"
+			}
+		];
+
+		var when =
+			{
+				cmd: "JoinGame",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29"
+		    };
+		var then = [
+			{
+				event: "GameFullJoinAttempted",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29"
+			}];
+
+		var actualEvents = tictactoe(given).executeCommand(when);
+		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
+	});
 });
