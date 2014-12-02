@@ -1,7 +1,9 @@
 #!/bin/bash
 echo "in deploy script"
 
-ssh root@178.62.248.172
-ls
+do
+	ssh -t -t root@178.62.248.172
+	ls
+done
 
 echo "done"
