@@ -1,10 +1,12 @@
 #!/bin/bash
 echo "in deploy script"
 
-ssh -t -t -o StrictHostKeyChecking=no root@178.62.248.172 '
-ls
-
-pwd
+ssh root@178.62.248.172 '
+docker kill tictactoe
+docker rm tictactoe
+docker pull tictactoe
+docker run tictactoe
+docker push tictactoe
 '
 ls
 
