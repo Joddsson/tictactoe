@@ -63,7 +63,7 @@ module.exports = function(history){
 		{
 			return true;
 		}
-	};
+	}
 	
 	return {
 		gameFull: function(){
