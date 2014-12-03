@@ -4,7 +4,24 @@ var tictactoe	= require('./tictactoe');
 
 describe('User won a game', function(){
 	it('should register one winner', function(){
-		var given 	= [];
+		var given 	= [
+			{
+				event: "GameCreated",
+				user: {
+					userName: "joddsson"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29"
+			},
+			{
+				event: "GameJoined",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29"
+			}
+		];
 		var when	= 
 		{
 			cmd: "WonGame",
@@ -27,7 +44,49 @@ describe('User won a game', function(){
 		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then)); 
 	});
 
-	it('should disallow users to make a move', function(){
+	it('should disallow users to make more moves', function(){
+		var given 	= [
+			{
+				event: "GameCreated",
+				user: {
+					userName: "joddsson"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29"
+			},
+			{
+				event: "GameJoined",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29"
+			},
+			{
+				event: "MoveMade",
+				user: {
+					userName: "Valli"
+				}
+			}
+		];
+		var when 	= 
+		{
+			cmd: "MakeMove",
+			user: {
+				userName: "Valli"
+			}
+		}
 
+		var then 	= [
+		{
+			event: "GameOverMoveAttempted",
+			user: {
+				userName: "Valli"
+			}
+		}];
+		var actualEvents = tictactoe(given).executeCommand(when);
+
+		should(actualEvents.length).be.exactly(1);
+		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then)); 
 	});
 }); 

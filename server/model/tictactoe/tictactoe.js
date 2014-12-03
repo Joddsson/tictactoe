@@ -43,6 +43,21 @@ module.exports = function(history){
 						winner: cmd.winner,
 						timeStamp: cmd.timeStamp
 					}];
+				},
+				"MakeMove": function(cmd){
+					if(gameState.gameOver()){
+						console.log("User tried to make move when board was full");
+						return[{
+							event: "GameOverMoveAttempted",
+							// The user how attempted to make the move.
+							user: cmd.user
+						}];
+					}
+					console.log("User made move");
+					return [{
+						event: "MoveMade",
+						user: cmd.user
+					}];
 				}
 			}
 			return cmdHandlers[cmd.cmd](cmd);
