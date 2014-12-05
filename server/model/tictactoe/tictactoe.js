@@ -59,7 +59,7 @@ module.exports = function(history){
 					}];
 
 					gameState.processEvents(events);
-					if(gameState.gameWon()){
+					if(gameState.gameWon(cmd.move.symbol)){
 						events.push(
 						{
 							event: "GameWon",

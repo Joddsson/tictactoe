@@ -65,7 +65,7 @@ describe('MakeMove command', function(){
 		]
 	});
 
-	it('should emit the game won if game is won on top row with symbol X', function(){
+	it('should emit the game won event if game is won on top row with symbol X', function(){
 		given 	= [
 			createEvent, joinEvent,
 			moveEvent([0, 0], "X"),
@@ -102,7 +102,7 @@ describe('MakeMove command', function(){
 		]; 
 	});
 
-	it('should emit the game won if game is won on middle row with symbol Y', function(){
+	it('should emit the game won event if game is won on middle row with symbol Y', function(){
 		given 	= [
 			createEvent, joinEvent,
 			moveEvent([0, 0], "O"),
@@ -171,6 +171,80 @@ describe('MakeMove command', function(){
 				move: {
 					coordinates: [2,1],
 					symbol: "O"
+				}
+			}
+		]; 
+	});
+
+	it('should emit the game won if game is won on diagonally with symbol X', function(){
+		given 	= [
+			createEvent, joinEvent,
+			moveEvent([0, 0], "X"),
+			moveEvent([1, 1], "X")
+		];
+
+		when 	= {
+			cmd: "MakeMove",
+			user: {
+				userName: "Valli"
+			},
+			name: "The first game",
+			timeStamp: "2014-12-02T11:29:29",
+			move: {
+				coordinates: [2, 2],
+				symbol: "X"
+			}
+		};
+
+		then 	= [
+			moveEvent([2,2], "X"),
+			{
+				event: "GameWon",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29",
+				move: {
+					coordinates: [2,2],
+					symbol: "X"
+				}
+			}
+		]; 
+	});
+
+	it('should emit the game won if game is won on diagonally with symbol Y', function(){
+		given 	= [
+			createEvent, joinEvent,
+			moveEvent([2, 0], "Y"),
+			moveEvent([1, 1], "Y")
+		];
+
+		when 	= {
+			cmd: "MakeMove",
+			user: {
+				userName: "Valli"
+			},
+			name: "The first game",
+			timeStamp: "2014-12-02T11:29:29",
+			move: {
+				coordinates: [0, 2],
+				symbol: "Y"
+			}
+		};
+
+		then 	= [
+			moveEvent([0,2], "Y"),
+			{
+				event: "GameWon",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29",
+				move: {
+					coordinates: [0,2],
+					symbol: "Y"
 				}
 			}
 		]; 

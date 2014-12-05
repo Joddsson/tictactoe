@@ -49,7 +49,12 @@ module.exports = function(history){
 		gameFull: function(){
 			return gameFull;			
 		},
-		gameWon: function(){
+		gameWon: function(symbol){
+			if(board[0][0] ===  symbol && board[1][1] === symbol && board[2][2] === symbol ||
+				board[2][0] ===  symbol && board[1][1] === symbol && board[0][2] === symbol)
+			{
+				return true;
+			}
 			return _.reduce(gameScore, function(won, score){
 				//console.log(score);
 				return won || score === 3 || score === -3;
