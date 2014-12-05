@@ -139,6 +139,43 @@ describe('MakeMove command', function(){
 		]; 
 	});
 
+	it('should emit the game won if game is won on middle column with symbol Y', function(){
+		given 	= [
+			createEvent, joinEvent,
+			moveEvent([0, 1], "O"),
+			moveEvent([1, 1], "O")
+		];
+
+		when 	= {
+			cmd: "MakeMove",
+			user: {
+				userName: "Valli"
+			},
+			name: "The first game",
+			timeStamp: "2014-12-02T11:29:29",
+			move: {
+				coordinates: [2, 1],
+				symbol: "O"
+			}
+		};
+
+		then 	= [
+			moveEvent([2,1], "O"),
+			{
+				event: "GameWon",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29",
+				move: {
+					coordinates: [2,1],
+					symbol: "O"
+				}
+			}
+		]; 
+	});
+
 	it('should emit the game draw if the board is full and nobody won', function(){
 		given 	= [
 			createEvent, joinEvent,

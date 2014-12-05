@@ -23,9 +23,9 @@ module.exports = function(history){
 			var row = event.move.coordinates[0];
 			var col = event.move.coordinates[1];
 
-			// Set coordinates to 1 if symbol is X and -1 if symbol is Oþ 
-			gameScore[row] 			+= point;
-			gameScore[board + col]	+= point;
+			// Set coordinates to 1 if symbol is X and -1 if symbol is O.
+			gameScore[row] 		+= point;
+			gameScore[3 + col]	+= point;
 
 			if(row === col){
 				gameScore[2 * board] += point;
@@ -51,6 +51,7 @@ module.exports = function(history){
 		},
 		gameWon: function(){
 			return _.reduce(gameScore, function(won, score){
+				//console.log(score);
 				return won || score === 3 || score === -3;
 			}, false);
 		},
@@ -61,7 +62,7 @@ module.exports = function(history){
 			return false;
 		},
 		illegalMove: function(coord){
-			console.log(board);
+			//console.log(board);
 			if(board[coord[0]][coord[1]] !== ''){
 				return true;
 			}
