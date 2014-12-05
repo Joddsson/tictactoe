@@ -31,12 +31,6 @@ module.exports = function(history){
 						timeStamp: cmd.timeStamp
 					}];
 				},
-				"WonGame": function(cmd){
-					return [{
-						event: "GameWon",
-						winner: cmd.winner
-					}];
-				},
 				"DrawGame": function(cmd){
 					return [{
 						event: "GameDraw",
@@ -54,13 +48,20 @@ module.exports = function(history){
 						move: cmd.move						
 					}];
 
+					gameState.processEvents(events);
+					if(gameState.gameWon()){
+						events.push(
+						{
+							event: "GameWon",
+							user: cmd.user,
+							name: cmd.name,
+							timeStamp: cmd.timeStamp,
+							move: cmd.move
+						})
+					}
+
 					return events;
 				}
-				/*console.log("User made move");
-				return [{
-					event: "MoveMade",
-					user: cmd.user
-				}];*/
 			}
 			return cmdHandlers[cmd.cmd](cmd);
 		}

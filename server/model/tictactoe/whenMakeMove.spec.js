@@ -40,7 +40,8 @@ describe('MakeMove command', function(){
 
 	afterEach(function(){
 		var actualEvents = tictactoe(given).executeCommand(when);
-		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then)); 
+		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
+
 	});
 
 	it('should emit MoveMade on first game move', function(){
@@ -65,53 +66,44 @@ describe('MakeMove command', function(){
 		]
 	});
 
-	/*it('should emit the GameOverMoveAttempted if move is made after game is over', function(){
-		var given 	= [
-			{
-				event: "GameCreated",
-				user: {
-					userName: "joddsson"
-				},
-				name: "The first game",
-				timeStamp: "2014-12-02T11:29:29"
-			},
-			{
-				event: "GameJoined",
-				user: {
-					userName: "Valli"
-				},
-				name: "The first game",
-				timeStamp: "2014-12-02T11:29:29"
-			},
-			{
-				event: "MoveMade",
-				user: {
-					userName: "Valli"
-				}
-			}
+	it('should emit the game won if game is won on top row', function(){
+		given 	= [
+			createEvent, joinEvent,
+			moveEvent([0, 0], "X"),
+			moveEvent([0, 1], "X")
 		];
-		var when 	= 
-		{
+
+		when 	= {
 			cmd: "MakeMove",
 			user: {
 				userName: "Valli"
+			},
+			name: "The first game",
+			timeStamp: "2014-12-02T11:29:29",
+			move: {
+				coordinates: [0, 2],
+				symbol: "X"
 			}
-		}
+		};
 
-		var then 	= [
-		{
-			event: "GameOverMoveAttempted",
-			user: {
-				userName: "Valli"
+		then 	= [
+			moveEvent([0,2], "X"),
+			{
+				event: "GameWon",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29",
+				move: {
+					coordinates: [0,2],
+					symbol: "X"
+				}
 			}
-		}];
-		var actualEvents = tictactoe(given).executeCommand(when);
-
-		should(actualEvents.length).be.exactly(1);
-		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then)); 
+		]; 
 	});
 
-	it('should emit the MoveMade if move is made and game is not over', function(){
+	/*it('should emit the MoveMade if move is made and game is not over', function(){
 		var given 	= [
 			{
 				event: "GameCreated",
