@@ -32,7 +32,7 @@ module.exports = function(history){
 			}
 
 			moveCount++;
-
+			
 			board[event.move.coordinates[0]][event.move.coordinates[1]] = event.move.symbol;
 		}
 	}
@@ -53,6 +53,12 @@ module.exports = function(history){
 			return _.reduce(gameScore, function(won, score){
 				return won || score === 3 || score === -3;
 			}, false);
+		},
+		gameTie: function(){
+			if(moveCount === 9){
+				return true;
+			}
+			return false;
 		}
 	}
 };

@@ -59,6 +59,16 @@ module.exports = function(history){
 							move: cmd.move
 						})
 					}
+					else if(gameState.gameTie()){
+						events.push(
+						{
+							event: "GameTie",
+							user: cmd.user,
+							name: cmd.name,
+							timeStamp: cmd.timeStamp,
+							move: cmd.move
+						})
+					}
 
 					return events;
 				}

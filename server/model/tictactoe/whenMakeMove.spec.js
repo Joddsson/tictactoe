@@ -103,51 +103,49 @@ describe('MakeMove command', function(){
 		]; 
 	});
 
-	/*it('should emit the MoveMade if move is made and game is not over', function(){
-		var given 	= [
-			{
-				event: "GameCreated",
-				user: {
-					userName: "joddsson"
-				},
-				name: "The first game",
-				timeStamp: "2014-12-02T11:29:29"
-			},
-			{
-				event: "GameJoined",
-				user: {
-					userName: "Valli"
-				},
-				name: "The first game",
-				timeStamp: "2014-12-02T11:29:29"
-			},
-			{
-				event: "MoveMade",
-				user: {
-					userName: "Valli"
-				}
-			}
+	it('should emit the game draw if the board is full and nobody won', function(){
+		given 	= [
+			createEvent, joinEvent,
+			moveEvent([0,0], "X"),
+			moveEvent([0,1], "X"),
+			moveEvent([0,2], "O"),
+			moveEvent([1,0], "O"),
+			moveEvent([1,1], "O"),
+			moveEvent([1,2], "X"),
+			moveEvent([2,0], "X"),
+			moveEvent([2,1], "O")
 		];
-		var when 	= 
+		
+		when 	= 
 		{
 			cmd: "MakeMove",
 			user: {
 				userName: "Valli"
+			},
+			name: "The first game",
+			timeStamp: "2014-12-02T11:29:29",
+			move: {
+				coordinates: [2,2],
+				symbol: "X"
 			}
-		}
+		};
 
-		var then 	= [
-		{
-			event: "MoveMade",
-			user: {
-				userName: "Valli"
+		then 	= [
+			moveEvent([2,2], "X"),
+			{
+				event: "GameTie",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29",
+				move: {
+					coordinates: [2,2],
+					symbol: "X"
+				}
 			}
-		}];
-		var actualEvents = tictactoe(given).executeCommand(when);
-
-		should(actualEvents.length).be.exactly(1);
-		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then)); 
-	});*/
+		]; 
+	});
 }); 
 // Fix this. Should this be in another test?
 	/*it('should emit the GameOverMoveAttempted event if user tried to make a move when game is over', function(){
