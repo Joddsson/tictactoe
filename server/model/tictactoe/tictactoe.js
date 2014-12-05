@@ -39,6 +39,16 @@ module.exports = function(history){
 					}];
 				},
 				"MakeMove": function(cmd){
+					if(gameState.illegalMove(cmd.move.coordinates)){
+						return [{
+							event: "IllegalMove",
+							user: cmd.user,
+							name: cmd.name,
+							timeStamp: cmd.timeStamp,
+							move: cmd.move
+						}];
+					}
+
 					var events = [{
 						event: "MoveMade",
 						// The user how attempted to make the move.
@@ -59,7 +69,7 @@ module.exports = function(history){
 							move: cmd.move
 						})
 					}
-					else if(gameState.gameTie()){
+					if(gameState.gameTie()){
 						events.push(
 						{
 							event: "GameTie",
@@ -69,6 +79,7 @@ module.exports = function(history){
 							move: cmd.move
 						})
 					}
+
 
 					return events;
 				}

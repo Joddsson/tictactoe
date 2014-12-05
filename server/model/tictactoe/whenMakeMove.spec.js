@@ -41,7 +41,6 @@ describe('MakeMove command', function(){
 	afterEach(function(){
 		var actualEvents = tictactoe(given).executeCommand(when);
 		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
-
 	});
 
 	it('should emit MoveMade on first game move', function(){
@@ -146,55 +145,38 @@ describe('MakeMove command', function(){
 			}
 		]; 
 	});
-}); 
-// Fix this. Should this be in another test?
-	/*it('should emit the GameOverMoveAttempted event if user tried to make a move when game is over', function(){
-		var given 	= [
-			{
-				event: "GameCreated",
-				user: {
-					userName: "joddsson"
-				},
-				name: "The first game",
-				timeStamp: "2014-12-02T11:29:29"
-			},
-			{
-				event: "GameJoined",
-				user: {
-					userName: "Valli"
-				},
-				name: "The first game",
-				timeStamp: "2014-12-02T11:29:29"
-			},
-			{
-				event: "MadeMove",
-				user: {
-					userName: "Valli"
-				}
-			}
+
+	it('should emit the illegal move event if player tries an illegal move', function(){
+		given 	= [
+			createEvent, joinEvent,
+			moveEvent([0,0], "O")
 		];
 
-		var when = 
+		when 	= 
 		{
-			cmd: "MakeMove", 
+			cmd: "MakeMove",
 			user: {
 				userName: "Valli"
+			},
+			name: "The first game",
+			timeStamp: "2014-12-02T11:29:29",
+			move: {
+				coordinates: [0,0],
+				symbol: "O"
 			}
 		};
 
-		var then = [
-			{
-				event: "GameOverMoveAttempted",
-				user: {
-					userName: "Valli"
-				}
-			}];
-
-		var actualEvents = tictactoe(given).executeCommand(when);
-
-		should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then)); 
+		then = [{
+			event: "IllegalMove",
+			user: {
+				userName: "Valli"
+			},
+			name: "The first game",
+			timeStamp: "2014-12-02T11:29:29",
+			move: {
+				coordinates: [0,0],
+				symbol: "O"
+			}
+		}];
 	});
-
-	it('should disallow users to make a move', function(){
-
-	});*/
+}); 

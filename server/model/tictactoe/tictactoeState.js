@@ -59,6 +59,13 @@ module.exports = function(history){
 				return true;
 			}
 			return false;
+		},
+		illegalMove: function(coord){
+			console.log(board);
+			if(board[coord[0]][coord[1]] !== ''){
+				return true;
+			}
+			return false;
 		}
 	}
 };
