@@ -65,7 +65,7 @@ describe('MakeMove command', function(){
 		]
 	});
 
-	it('should emit the game won if game is won on top row', function(){
+	it('should emit the game won if game is won on top row with symbol X', function(){
 		given 	= [
 			createEvent, joinEvent,
 			moveEvent([0, 0], "X"),
@@ -97,6 +97,43 @@ describe('MakeMove command', function(){
 				move: {
 					coordinates: [0,2],
 					symbol: "X"
+				}
+			}
+		]; 
+	});
+
+	it('should emit the game won if game is won on middle row with symbol Y', function(){
+		given 	= [
+			createEvent, joinEvent,
+			moveEvent([0, 0], "O"),
+			moveEvent([0, 1], "O")
+		];
+
+		when 	= {
+			cmd: "MakeMove",
+			user: {
+				userName: "Valli"
+			},
+			name: "The first game",
+			timeStamp: "2014-12-02T11:29:29",
+			move: {
+				coordinates: [0, 2],
+				symbol: "O"
+			}
+		};
+
+		then 	= [
+			moveEvent([0,2], "O"),
+			{
+				event: "GameWon",
+				user: {
+					userName: "Valli"
+				},
+				name: "The first game",
+				timeStamp: "2014-12-02T11:29:29",
+				move: {
+					coordinates: [0,2],
+					symbol: "O"
 				}
 			}
 		]; 
