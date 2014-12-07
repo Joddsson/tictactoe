@@ -9,7 +9,7 @@ module.exports = function(app) {
 
 	app.route('/api/createGame')
 		.post(function(req, res, next){
-			alert("yolo");
+			console.log("yolo");
 		});
 	// All undefined asset or api routes should return a 404
 	//app.route('/:url(api|auth|components|app|bower_components|assets)/*')
