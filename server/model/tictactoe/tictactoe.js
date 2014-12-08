@@ -4,9 +4,12 @@ module.exports = function(history){
 
 	return {
 		executeCommand: function(cmd){
+
 			var cmdHandlers = {
 				"CreateGame": function(cmd){
+					console.log("in game created");
 					return [{
+						id: cmd.id,
 						event: "GameCreated",
 						user: cmd.user,
 						name: cmd.name,
