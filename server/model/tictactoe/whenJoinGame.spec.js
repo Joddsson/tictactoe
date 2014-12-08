@@ -5,6 +5,7 @@ var tictactoe = require('./tictactoe');
 describe('Join game command', function(){
 	it('should emit game joined event', function(){
 		var given	= [{
+			id: 1,
 			event: "GameCreated",
 			user: {
 				userName: "joddsson"
@@ -37,6 +38,7 @@ describe('Join game command', function(){
 	it('should emit GameFullJoinAttempted event if game is full', function(){
 		var given 	= [
 			{
+				id: 1,
 				event: "GameCreated",
 				user: {
 					userName: "joddsson"

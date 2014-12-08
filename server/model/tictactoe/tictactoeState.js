@@ -3,12 +3,16 @@ var _ = require('lodash');
 module.exports = function(history){
 	var gameFull 	= false;
 	var gameOver 	= false;
+	var gameCreated	= false;
 	var gameScore	= [0,0,0,0,0,0,0,0,0];
 	var board 		= [["", "", ""], ["", "", ""], ["", "", ""]];
 	var point 		= 0;
 	var moveCount	= 0;
 
 	function processEvent(event){
+		if(event.event === "GameCreated"){
+			gameCreated = true;
+		}
 		if(event.event === "GameJoined"){
 			gameFull = true;
 		}
@@ -46,6 +50,9 @@ module.exports = function(history){
 	return {
 		processEvents: processEvents,
 
+		gameCreated: function(){
+			return gameCreated;
+		},
 		gameFull: function(){
 			return gameFull;			
 		},

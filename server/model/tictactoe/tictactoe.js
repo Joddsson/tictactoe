@@ -7,7 +7,6 @@ module.exports = function(history){
 
 			var cmdHandlers = {
 				"CreateGame": function(cmd){
-					console.log("in game created");
 					return [{
 						id: cmd.id,
 						event: "GameCreated",
@@ -20,7 +19,18 @@ module.exports = function(history){
 					if(gameState.gameFull()){
 						console.log("User tried to join a full game");
 						return[{
+							id: cmd.id,
 							event: "GameFullJoinAttempted",
+							user: cmd.user,
+							name: cmd.name,
+							timeStamp: cmd.timeStamp
+						}];
+					}
+					if(!gameState.gameCreated()){
+						console.log("User tried to join a empty game");
+						return[{
+							id: cmd.id,
+							event: "GameEmptyJoinAttempted",
 							user: cmd.user,
 							name: cmd.name,
 							timeStamp: cmd.timeStamp
@@ -28,6 +38,7 @@ module.exports = function(history){
 					}
 					console.log("User joined a game");
 					return[{
+						id: cmd.id,
 						event: "GameJoined",
 						user: cmd.user,
 						name: cmd.name,
