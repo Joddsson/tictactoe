@@ -8,7 +8,6 @@ module.exports = function(history){
 	var board 		= [["", "", ""], ["", "", ""], ["", "", ""]];
 	var point 		= 0;
 	var moveCount	= 0;
-	var moveTie		= 0;
 
 	function processEvent(event){
 		if(event.event === "GameCreated"){
@@ -35,7 +34,6 @@ module.exports = function(history){
 			if(row === col){
 				gameScore[2 * board] += point;
 			}
-
 
       		if (3 - 1 - col === row) gameScore[2*3 + 1] += point;
 
@@ -68,10 +66,6 @@ module.exports = function(history){
 				moveCount = 0;
 				return true;
 			}
-			/*if(score === 3 || score === -3){
-				moveCount = 0;
-				return true;
-			}*/
 			return _.reduce(gameScore, function(won, score){
 				return won || score === 3 || score === -3;
 			}, false);
@@ -84,7 +78,6 @@ module.exports = function(history){
 			return false;
 		},
 		illegalMove: function(coord){
-			//console.log(board);
 			if(board[coord[0]][coord[1]] !== ''){
 				return true;
 			}

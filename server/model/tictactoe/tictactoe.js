@@ -3,10 +3,6 @@ module.exports = function(history){
 	var tictactoeState 	= require('./tictactoeState');
 	var gameState 		= tictactoeState(history);
 
-var hideGrid = function(){
-	$('div.grid').hide();
-};
-
 	return {
 		executeCommand: function(cmd){
 
