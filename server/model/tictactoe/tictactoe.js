@@ -1,6 +1,11 @@
+
 module.exports = function(history){
 	var tictactoeState 	= require('./tictactoeState');
 	var gameState 		= tictactoeState(history);
+
+var hideGrid = function(){
+	$('div.grid').hide();
+};
 
 	return {
 		executeCommand: function(cmd){
@@ -45,13 +50,6 @@ module.exports = function(history){
 						timeStamp: cmd.timeStamp
 					}];
 				},
-				"DrawGame": function(cmd){
-					return [{
-						event: "GameDraw",
-						winner: cmd.winner,
-						timeStamp: cmd.timeStamp
-					}];
-				},
 				"MakeMove": function(cmd){
 					if(gameState.illegalMove(cmd.move.coordinates)){
 						return [{
@@ -93,8 +91,6 @@ module.exports = function(history){
 							move: cmd.move
 						})
 					}
-
-
 					return events;
 				}
 			}

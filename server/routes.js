@@ -8,6 +8,7 @@ module.exports = function(app) {
 	app.use('/api/things', require('./api/thing'));
 	app.use('/api/createGame', require('./api/gameActions'));
 	app.use('/api/joinGame', require('./api/gameActions'));
+	app.use('/api/makeMove', require('./api/gameActions'));
 
 	// All undefined asset or api routes should return a 404
 	app.route('/:url(api|auth|components|app|bower_components|assets)/*')

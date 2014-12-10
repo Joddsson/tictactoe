@@ -1,11 +1,33 @@
 'use strict';
 
-angular.module('tictactoeApp')
-  .controller('MainCtrl', function ($scope, $http) {
-    $scope.awesomeThings = [];
+var app = angular.module('tictactoeApp');
+app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
+	$scope.awesomeThings = [];
+	$http.get('/api/things').success(function(awesomeThings) {
+		$scope.awesomeThings = awesomeThings;
+	});
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });
+	$scope.createGame = function(){
+	    var id = Math.floor((Math.random() * 1000) + 1);
+	    var CreateGameCmd = 
+	    {
+	        "id": id,
+	        "cmd": "CreateGame",
+	        "user": $scope.userName,
+	        "name": $scope.gameName,
+	        "timeStamp": new Date().getTime() 
+	    }
 
-  });
+
+	    $http.post('http://localhost:9000/api/createGame', CreateGameCmd)
+	    .success(function(data, status, headers, config) {
+    	    gameFactory.setUserName(data[0].user.userName);
+    	    gameFactory.setGameName(data[0].name);
+            $state.go('game');
+	        console.log(data);      
+	    })
+	    .error(function(data, status, headers, config) {
+	        console.log(data);          
+	    });
+	};
+});

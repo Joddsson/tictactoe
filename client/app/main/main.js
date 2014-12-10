@@ -1,11 +1,16 @@
 'use strict';
 
-angular.module('tictactoeApp')
-  .config(function ($stateProvider) {
+var app = angular.module('tictactoeApp');
+  app.config(function ($stateProvider) {
     $stateProvider
-      .state('main', {
-        url: '/',
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
-      });
+		.state('main', {
+        	url: '/',
+        	templateUrl: 'app/main/main.html',
+        	controller: 'MainCtrl'
+      	})
+      	.state('game', {
+      		url: '/game',
+      		templateUrl: 'app/game/game.html',
+      		controller: 'GameCtrl'
+      	});
   });

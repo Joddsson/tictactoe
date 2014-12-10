@@ -8,6 +8,7 @@ module.exports = function(history){
 	var board 		= [["", "", ""], ["", "", ""], ["", "", ""]];
 	var point 		= 0;
 	var moveCount	= 0;
+	var moveTie		= 0;
 
 	function processEvent(event){
 		if(event.event === "GameCreated"){
@@ -35,7 +36,11 @@ module.exports = function(history){
 				gameScore[2 * board] += point;
 			}
 
-			moveCount++;
+
+      		if (3 - 1 - col === row) gameScore[2*3 + 1] += point;
+
+			moveCount ++;
+			console.log(moveTie);
 			
 			board[event.move.coordinates[0]][event.move.coordinates[1]] = event.move.symbol;
 		}
@@ -60,15 +65,20 @@ module.exports = function(history){
 			if(board[0][0] ===  symbol && board[1][1] === symbol && board[2][2] === symbol ||
 				board[2][0] ===  symbol && board[1][1] === symbol && board[0][2] === symbol)
 			{
+				moveCount = 0;
 				return true;
 			}
+			/*if(score === 3 || score === -3){
+				moveCount = 0;
+				return true;
+			}*/
 			return _.reduce(gameScore, function(won, score){
-				//console.log(score);
 				return won || score === 3 || score === -3;
 			}, false);
 		},
 		gameTie: function(){
 			if(moveCount === 9){
+				moveCount = 0;
 				return true;
 			}
 			return false;
