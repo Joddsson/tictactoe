@@ -38,7 +38,6 @@ module.exports = function(history){
       		if (3 - 1 - col === row) gameScore[2*3 + 1] += point;
 
 			moveCount ++;
-			console.log(moveTie);
 			
 			board[event.move.coordinates[0]][event.move.coordinates[1]] = event.move.symbol;
 		}
