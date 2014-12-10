@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('tictactoeApp')
 .factory('gameFactory', function (){
 	var userName;

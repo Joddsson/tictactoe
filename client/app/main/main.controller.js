@@ -11,22 +11,22 @@ app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
 	    var id = Math.floor((Math.random() * 1000) + 1);
 	    var CreateGameCmd = 
 	    {
-	        "id": id,
-	        "cmd": "CreateGame",
-	        "user": $scope.userName,
-	        "name": $scope.gameName,
-	        "timeStamp": new Date().getTime() 
-	    }
+	        id: id,
+	        cmd: 'CreateGame',
+	        user: $scope.userName,
+	        name: $scope.gameName,
+	        timeStamp: new Date().getTime() 
+	    };
 
 
 	    $http.post('http://localhost:9000/api/createGame', CreateGameCmd)
-	    .success(function(data, status, headers, config) {
+	    .success(function(data) {
     	    gameFactory.setUserName(data[0].user.userName);
     	    gameFactory.setGameName(data[0].name);
             $state.go('game');
 	        console.log(data);      
 	    })
-	    .error(function(data, status, headers, config) {
+	    .error(function(data) {
 	        console.log(data);          
 	    });
 	};
