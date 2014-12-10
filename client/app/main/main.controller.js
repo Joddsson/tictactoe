@@ -5,7 +5,10 @@ app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
 	$scope.awesomeThings = [];
 	$http.get('/api/things').success(function(awesomeThings) {
 		$scope.awesomeThings = awesomeThings;
-	});
+	})
+    .error(function(data){
+        console.log(data);
+    });
 
 	$scope.createGame = function(){
 	    var id = Math.floor((Math.random() * 1000) + 1);
@@ -17,7 +20,6 @@ app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
 	        name: $scope.gameName,
 	        timeStamp: new Date().getTime() 
 	    };
-
 
 	    $http.post('http://localhost:9000/api/createGame', CreateGameCmd)
 	    .success(function(data) {

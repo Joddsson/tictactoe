@@ -1,22 +1,20 @@
 <div ng-app="tictactoeApp">
-	<div ng-controller="GameCtrl">
-		<div ng-include="'components/navbar/navbar.html'"></div>
-		<div class="grid">
-			<div class="row">
-				<div class="col-md-4 box" id="nr1" ng-click="sum('nr1', [0,0])"><p></p></div>
-				<div class="col-md-4 box" id="nr2" ng-click="sum('nr2', [0,1])"><p></p></div>
-				<div class="col-md-4 box" id="nr3" ng-click="sum('nr3', [0,2])"><p></p></div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 box" id="nr4" ng-click="sum('nr4', [1,0])"><p></p></div>
-				<div class="col-md-4 box" id="nr5" ng-click="sum('nr5', [1,1])"><p></p></div>
-				<div class="col-md-4 box" id="nr6" ng-click="sum('nr6', [1,2])"><p></p></div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 box" id="nr7" ng-click="sum('nr7', [2,0])"><p></p></div>
-				<div class="col-md-4 box" id="nr8" ng-click="sum('nr8', [2,1])"><p></p></div>
-				<div class="col-md-4 box" id="nr9" ng-click="sum('nr9', [2,2])"><p></p></div>
-			</div>
+	<div ng-include="'components/navbar/navbar.html'"></div>
+	<div class="grid">
+		<div class="row">
+			<div class="col-md-4 box" id="nr1" ng-click="sum('nr1', [0,0])"><p></p></div>
+			<div class="col-md-4 box" id="nr2" ng-click="sum('nr2', [0,1])"><p></p></div>
+			<div class="col-md-4 box" id="nr3" ng-click="sum('nr3', [0,2])"><p></p></div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 box" id="nr4" ng-click="sum('nr4', [1,0])"><p></p></div>
+			<div class="col-md-4 box" id="nr5" ng-click="sum('nr5', [1,1])"><p></p></div>
+			<div class="col-md-4 box" id="nr6" ng-click="sum('nr6', [1,2])"><p></p></div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 box" id="nr7" ng-click="sum('nr7', [2,0])"><p></p></div>
+			<div class="col-md-4 box" id="nr8" ng-click="sum('nr8', [2,1])"><p></p></div>
+			<div class="col-md-4 box" id="nr9" ng-click="sum('nr9', [2,2])"><p></p></div>
 		</div>
 	</div>
 </div>

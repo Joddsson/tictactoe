@@ -1,10 +1,10 @@
 'use strict';
 
-var app = angular.module('tictactoeApp');
+var app     = angular.module('tictactoeApp');
 
-app.controller('GameCtrl', function ($scope, $http, gameFactory) {
+app.controller('GameCtrl', function ($scope, $http) {
     var nextTurn = 'X';
-    console.log(gameFactory);
+
     $scope.sum = function(box, coords){
         var currentSymbol = 'X';
 
@@ -37,13 +37,10 @@ app.controller('GameCtrl', function ($scope, $http, gameFactory) {
             changeTurn();
         }
 
-
-
-
         $http.post('http://localhost:9000/api/makeMove', MakeMoveCmd).
             success(function(data) {
                 console.log(data);
-            });  
+            }); 
     };
 });
 

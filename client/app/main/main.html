@@ -1,14 +1,12 @@
 <div ng-app="tictactoeApp">
-	<div ng-controller="MainCtrl">
-		<form ng-submit="createGame()">
-			<h1>Create game</h1></br>
-			<div>
-				Username:</br>
-				<input type="text" ng-model="userName" /></br>
-				Gamename:</br>
-				<input type="text" ng-model="gameName" /></br>
-				<button type="submit" class="btn btn-primary">Let's play</button>
-			</div>
-		</form>
-	</div>
+	<form ng-submit="createGame()">
+		<h1>Create game</h1></br>
+		<div>
+			Username:</br>
+			<input type="text" ng-model="userName" /></br>
+			Gamename:</br>
+			<input type="text" ng-model="gameName" /></br>
+			<button type="submit" class="btn btn-primary">Let's play</button>
+		</div>
+	</form>
 </div>
