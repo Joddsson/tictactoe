@@ -25,6 +25,7 @@ app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
 	    .success(function(data) {
     	    gameFactory.setUserName(data[0].user.userName);
     	    gameFactory.setGameName(data[0].name);
+    	    
             $state.go('game');
 	        console.log(data);      
 	    })

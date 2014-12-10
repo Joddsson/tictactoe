@@ -2,10 +2,6 @@ var app 				= require('../app');
 var boundedContext 		= require('../model/tictactoe/tictactoeBoundedContext'); 
 var tictactoehandler	= require('../model/tictactoe/tictactoe');
 
-var express = require('express')();
-var http = require('http').Server(express);
-var io = require('socket.io')(http);
-
 exports.executeCommand = function (req, res) {
 	try{
 		if(!app.eventStore){
