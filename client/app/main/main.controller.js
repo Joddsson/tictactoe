@@ -21,20 +21,10 @@ app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
 	        timeStamp: new Date().getTime() 
 	    };
 
-	    var req = {
-			method: 'POST',
-			url: 'http://localhost:9000/api/createGame',
-			headers: {
-				'Access-Control-Allow-Origin': '*'
-			},
-			data: CreateGameCmd
-	    };
-
-	    $http(req)
+	    $http.post('/api/createGame', CreateGameCmd)
 	    .success(function(data) {
     	    gameFactory.setUserName(data[0].user.userName);
     	    gameFactory.setGameName(data[0].name);
-
             $state.go('game');
 	        console.log(data);      
 	    })

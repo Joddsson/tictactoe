@@ -8,6 +8,11 @@ exports.executeCommand = function (req, res) {
 			app.eventStore = require('../eventstore/memorystore')();
 		}
 
+		//req.addHeader("Access-Control-Allow-Origin", "*");
+		console.log(res);
+
+
+
 		var store 	= app.eventStore;
 		var context = boundedContext(store, tictactoehandler);
 		var result 	= context.handleCommand(req.body);
