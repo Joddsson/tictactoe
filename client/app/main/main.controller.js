@@ -28,7 +28,7 @@ app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
 				'Access-Control-Allow-Origin': '*'
 			},
 			data: CreateGameCmd
-	    }
+	    };
 
 	    $http(req)
 	    .success(function(data) {
