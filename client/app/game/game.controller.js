@@ -2,8 +2,9 @@
 
 var app     = angular.module('tictactoeApp');
 
-app.controller('GameCtrl', function ($scope, $http) {
+app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $state) {
     var nextTurn = 'X';
+    $scope.identifier = Math.floor((Math.random() * 1000) + 1);
 
     $scope.sum = function(box, coords){
         var currentSymbol = 'X';
@@ -30,7 +31,6 @@ app.controller('GameCtrl', function ($scope, $http) {
                 symbol: currentSymbol
             } 
         };
-
         if($('#' + box + ' p').html() === ''){
             $('#' + box + ' p').text(nextTurn);
             
@@ -41,6 +41,39 @@ app.controller('GameCtrl', function ($scope, $http) {
             success(function(data) {
                 console.log(data);
             }); 
+    };
+
+    $scope.createGame = function(){
+        var CreateGameCmd = 
+        {
+            id: $scope.identifier,
+            cmd: 'CreateGame',
+            user: $scope.userName,
+            name: $scope.gameName,
+            timeStamp: new Date().getTime() 
+        };
+        
+        console.log( "stateParams ----------------------------" + $stateParams);
+        var gId = CreateGameCmd.id;
+        var gameId = $stateParams.gameId;
+
+        var req = {
+            method: 'POST',
+            url: '/api/createGame',
+            data: CreateGameCmd,
+        };
+
+
+        $http(req)
+        .success(function(data) {
+            gameFactory.setUserName(data[0].user.userName);
+            gameFactory.setGameName(data[0].name);
+            $state.go('game', { 'gameId': gId });
+            console.log(data);      
+        })
+        .error(function(data) {
+            console.log(data);          
+        });
     };
 });
 
