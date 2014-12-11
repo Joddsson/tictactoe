@@ -1,6 +1,15 @@
 'use strict';
 
 var app = angular.module('tictactoeApp');
+
+app.config(function($httpProvider) {
+    //Enable cross domain calls
+    $httpProvider.defaults.useXDomain = true;
+
+    //Remove the header used to identify ajax call  that would prevent CORS from working
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+});
+
 app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
 	$scope.awesomeThings = [];
 	$http.get('/api/things').success(function(awesomeThings) {
@@ -24,9 +33,6 @@ app.controller('MainCtrl', function ($scope, $http, gameFactory, $state) {
 	    var req = {
 		    method: 'POST',
 		    url: 'http://localhost:9000/api/createGame',
-		    headers: {
-		    	'Access-Control-Allow-Origin': '*'
-		    },
 		    data: CreateGameCmd,
 	    };
 
