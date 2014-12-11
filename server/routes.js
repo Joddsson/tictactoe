@@ -4,6 +4,7 @@ var errors  = require('./components/errors');
 var router  = express.Router();
 
 module.exports = function(app) {
+	console.log("**********************" + app);
 	// Insert routes below
 	app.use('/api/things', require('./api/thing'));
 	app.use('/api/createGame', require('./api/gameActions'));

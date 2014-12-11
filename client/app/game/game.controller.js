@@ -37,7 +37,7 @@ app.controller('GameCtrl', function ($scope, $http) {
             changeTurn();
         }
 
-        $http.post('http://localhost:9000/api/makeMove', MakeMoveCmd).
+        $http.post('/api/makeMove', MakeMoveCmd).
             success(function(data) {
                 console.log(data);
             }); 
