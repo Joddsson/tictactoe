@@ -2,7 +2,7 @@
 
 var app = angular.module('tictactoeApp');
 
-app.controller('MainCtrl', function ($scope, $http, gameFactory, $state, $stateParams) {
+app.controller('MainCtrl', function ($scope, $http) {
 	$scope.awesomeThings = [];
 	
 	$http.get('/api/things').success(function(awesomeThings) {

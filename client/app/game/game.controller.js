@@ -53,9 +53,7 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             timeStamp: new Date().getTime() 
         };
         
-        console.log( "stateParams ----------------------------" + $stateParams);
         var gId = CreateGameCmd.id;
-        var gameId = $stateParams.gameId;
 
         var req = {
             method: 'POST',
