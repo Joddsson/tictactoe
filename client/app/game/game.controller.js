@@ -15,8 +15,8 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             name: 'The first game',
             timeStamp: '2014-12-02T11:29:29',
             move: {
-                coordinates: coords,
-                symbol: currentSymbol
+                coordinates: coords
+                //symbol: currentSymbol
             } 
         };
         if($('#' + box + ' p').html() === ''){
