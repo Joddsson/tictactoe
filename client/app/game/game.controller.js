@@ -1,9 +1,7 @@
 'use strict';
 
 var app     = angular.module('tictactoeApp');
-
 app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $state) {
-    var socket  = io();
     var nextTurn = 'X';
     var currentSymbol = 'X';
     $scope.identifier = Math.floor((Math.random() * 10000) + 1);
@@ -32,8 +30,9 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
                 symbol: currentSymbol
             } 
         };
-
+        /* jshint ignore:start */
         socket.emit('moveMade', box);
+        /* jshint ignore:end */
 
         $http.post('/api/makeMove', MakeMoveCmd)
         .success(function(data) {
@@ -43,12 +42,14 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             console.log(data);
         });
     };
-    
+    /* jshint ignore:start */
     socket.on('moveMade', function(co){
-        console.log(typeof(co) + " " + co);
         $('#' + co + ' p').text(nextTurn);
+    /* jshint ignore:end */
         changeTurn();
+    /* jshint ignore:start */
     });
+    /* jshint ignore:end */
 
     $scope.createGame = function(){
         var CreateGameCmd = 
