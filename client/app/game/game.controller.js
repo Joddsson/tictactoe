@@ -3,11 +3,24 @@
 var app     = angular.module('tictactoeApp');
 
 app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $state) {
-    
-    $scope.identifier = Math.floor((Math.random() * 1000) + 1);
+    var socket  = io();
+    var nextTurn = 'X';
+    var currentSymbol = 'X';
+    $scope.identifier = Math.floor((Math.random() * 10000) + 1);
+
+    var changeTurn = function (){
+        console.log(nextTurn);
+        if(nextTurn === 'X'){
+            nextTurn        = 'O';
+            currentSymbol   = 'X';
+        }
+        else{
+            nextTurn        = 'X';
+            currentSymbol   = 'O';
+        }
+    };
 
     $scope.sum = function(box, coords){
-
         var MakeMoveCmd = 
         {
             cmd: 'MakeMove',
@@ -15,20 +28,27 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             name: 'The first game',
             timeStamp: '2014-12-02T11:29:29',
             move: {
-                coordinates: coords
-                //symbol: currentSymbol
+                coordinates: coords,
+                symbol: currentSymbol
             } 
         };
-        if($('#' + box + ' p').html() === ''){
-            //$('#' + box + ' p').text(nextTurn);
-            
-        }
 
-        $http.post('/api/makeMove', MakeMoveCmd).
-            success(function(data) {
-                console.log(data);
-            }); 
+        socket.emit('moveMade', box);
+
+        $http.post('/api/makeMove', MakeMoveCmd)
+        .success(function(data) {
+            console.log(data);
+        })
+        .error(function(data){
+            console.log(data);
+        });
     };
+    
+    socket.on('moveMade', function(co){
+        console.log(typeof(co) + " " + co);
+        $('#' + co + ' p').text(nextTurn);
+        changeTurn();
+    });
 
     $scope.createGame = function(){
         var CreateGameCmd = 

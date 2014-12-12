@@ -47,6 +47,7 @@ module.exports = function(history){
 					}];
 				},
 				"MakeMove": function(cmd){
+					console.log(cmd);
 					if(gameState.illegalMove(cmd.move.coordinates)){
 						return [{
 							event: "IllegalMove",
@@ -67,7 +68,7 @@ module.exports = function(history){
 					}];
 
 					gameState.processEvents(events);
-					if(gameState.gameWon(cmd.move.symbol)){
+					if(gameState.gameWon()){
 						events.push(
 						{
 							event: "GameWon",
@@ -87,6 +88,7 @@ module.exports = function(history){
 							move: cmd.move
 						})
 					}
+					console.log(events);
 					return events;
 				}
 			}

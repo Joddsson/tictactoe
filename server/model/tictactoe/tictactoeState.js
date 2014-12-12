@@ -17,12 +17,7 @@ module.exports = function(history){
 			gameFull = true;
 		}
 		if(event.event === "MoveMade"){
-			if(event.move.symbol === 'X'){
-				point = 1;
-			}
-			else if(event.move.symbol === 'O'){
-				point = -1;
-			}
+			var point = event.move.side==='X'? 1 : -1;	
 
 			var row = event.move.coordinates[0];
 			var col = event.move.coordinates[1];
@@ -43,6 +38,15 @@ module.exports = function(history){
 		}
 	}
 
+	function gameWon(){
+	    return _.reduce(gameScore, function(won, score){
+	    	console.log("won: " + won + ", " + "score: " + score);
+	      
+	      return won || score === 3 || score === -3;
+
+	    }, false);
+	  }
+
 	function processEvents(history) {
 		_.each(history, processEvent);
 	}
@@ -58,26 +62,18 @@ module.exports = function(history){
 		gameFull: function(){
 			return gameFull;			
 		},
-		gameWon: function(symbol){
-			if(board[0][0] ===  symbol && board[1][1] === symbol && board[2][2] === symbol ||
-				board[2][0] ===  symbol && board[1][1] === symbol && board[0][2] === symbol)
-			{
-				moveCount = 0;
-				return true;
-			}
-			return _.reduce(gameScore, function(won, score){
-				return won || score === 3 || score === -3;
-			}, false);
-		},
+		gameWon : gameWon,
 		gameTie: function(){
+			if(gameWon()){
+				return false;
+			}
 			if(moveCount === 9){
-				moveCount = 0;
 				return true;
 			}
 			return false;
 		},
-		illegalMove: function(coord){
-			if(board[coord[0]][coord[1]] !== ''){
+		illegalMove: function(coords){
+			if(board[coords[0]][coords[1]] !== ''){
 				return true;
 			}
 			return false;

@@ -22,40 +22,10 @@
 	<script>
 		var socket 	= io();
 		var box;
-		var nextTurn = 'X';
-		var currentSymbol = 'X';
-		
-		var changeTurn = function (){
-            if(nextTurn === 'X'){
-                nextTurn        = 'O';
-                currentSymbol   = 'X';
-            }
-            else{
-                nextTurn        = 'X';
-                currentSymbol   = 'O';
-            }
-        };
-
-        var sbox = function(bo){
-        	return bo;
-        }
 
 	  	socket.on('Incoming connection', function(u){
-	  		console.log("useeer: " + u);
+	  		console.log("user: " + u);
 	    	$('#players').append($('<li>').text(u));
-	  	});
-	  	
-	  	$('.box').click(function(event){
-	  		box = event.target.id;
-	  		console.log(box);
-	  		socket.emit('moveMade', box);
-	  		changeTurn();
-	  		return false;
-	  	});
-	  
-	  	socket.on('moveMade', function(co){
-	  		console.log(typeof(co) + " " + co);
-	  		$('#' + co + ' p').text(nextTurn);
 	  	});
 	</script>
 </div>
