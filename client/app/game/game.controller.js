@@ -3,22 +3,10 @@
 var app     = angular.module('tictactoeApp');
 
 app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $state) {
-    var nextTurn = 'X';
+    
     $scope.identifier = Math.floor((Math.random() * 1000) + 1);
 
     $scope.sum = function(box, coords){
-        var currentSymbol = 'X';
-
-        var changeTurn = function (){
-            if(nextTurn === 'X'){
-                nextTurn        = 'O';
-                currentSymbol   = 'X';
-            }
-            else{
-                nextTurn        = 'X';
-                currentSymbol   = 'O';
-            }
-        };
 
         var MakeMoveCmd = 
         {
@@ -32,9 +20,8 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             } 
         };
         if($('#' + box + ' p').html() === ''){
-            $('#' + box + ' p').text(nextTurn);
+            //$('#' + box + ' p').text(nextTurn);
             
-            changeTurn();
         }
 
         $http.post('/api/makeMove', MakeMoveCmd).
@@ -53,7 +40,7 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             timeStamp: new Date().getTime() 
         };
         
-        var gId = CreateGameCmd.id;
+        $scope.gId = CreateGameCmd.id;
 
         var req = {
             method: 'POST',
@@ -61,12 +48,11 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             data: CreateGameCmd,
         };
 
-
         $http(req)
         .success(function(data) {
             gameFactory.setUserName(data[0].user.userName);
             gameFactory.setGameName(data[0].name);
-            $state.go('game', { 'gameId': gId });
+            $state.go('game', { 'gameId': $scope.gId });
             console.log(data);      
         })
         .error(function(data) {

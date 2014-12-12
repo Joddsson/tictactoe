@@ -12,14 +12,6 @@ exports.executeCommand = function (req, res) {
 		var context = boundedContext(store, tictactoehandler);
 		var result 	= context.handleCommand(req.body);
 
-		/*io.on('connection', function(socket){
-		  console.log('a user connected');
-		});
-
-		http.listen(3000, function(){
-		  console.log('listening on *:3000');
-		});*/
-
 		res.json(result);
 	}
 	catch(e){

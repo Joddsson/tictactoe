@@ -11,7 +11,6 @@ app.config(function ($stateProvider) {
 	.state('game', {
 		url: '/game/{gameId}',
 		templateUrl: 'app/game/game.html',
-		//params: ['gameId'],
 		controller: 'GameCtrl'
 	});
 });

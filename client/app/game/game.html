@@ -1,6 +1,7 @@
 <div ng-app="tictactoeApp">
 	<div ng-include="'components/navbar/navbar.html'"></div>
 	<div class="grid">
+		<ul id="players"></ul>
 		<div class="row">
 			<div class="col-md-4 box" id="nr1" ng-click="sum('nr1', [0,0])"><p></p></div>
 			<div class="col-md-4 box" id="nr2" ng-click="sum('nr2', [0,1])"><p></p></div>
@@ -17,4 +18,44 @@
 			<div class="col-md-4 box" id="nr9" ng-click="sum('nr9', [2,2])"><p></p></div>
 		</div>
 	</div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket 	= io();
+		var box;
+		var nextTurn = 'X';
+		var currentSymbol = 'X';
+		
+		var changeTurn = function (){
+            if(nextTurn === 'X'){
+                nextTurn        = 'O';
+                currentSymbol   = 'X';
+            }
+            else{
+                nextTurn        = 'X';
+                currentSymbol   = 'O';
+            }
+        };
+
+        var sbox = function(bo){
+        	return bo;
+        }
+
+	  	socket.on('Incoming connection', function(u){
+	  		console.log("useeer: " + u);
+	    	$('#players').append($('<li>').text(u));
+	  	});
+	  	
+	  	$('.box').click(function(event){
+	  		box = event.target.id;
+	  		console.log(box);
+	  		socket.emit('moveMade', box);
+	  		changeTurn();
+	  		return false;
+	  	});
+	  
+	  	socket.on('moveMade', function(co){
+	  		console.log(typeof(co) + " " + co);
+	  		$('#' + co + ' p').text(nextTurn);
+	  	});
+	</script>
 </div>

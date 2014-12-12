@@ -1,15 +1,29 @@
 <div ng-app="tictactoeApp">
-<div ng-controller="GameCtrl">
-	
-	<form ng-submit="createGame()">
-		<h1>Create game</h1></br>
-		<div>
-			Username:</br>
-			<input type="text" ng-model="userName" /></br>
-			Gamename:</br>
-			<input type="text" ng-model="gameName" /></br>
-			<button type="submit" class="btn btn-primary">Let's play</button>
-		</div>
-	</form>
-</div>
+	<div ng-controller="GameCtrl">
+		<ul id="players">
+			<li>harri</li>
+		</ul>
+		<form ng-submit="createGame()">
+			<h1>Create game</h1></br>
+			<div>
+				Username:</br>
+				<input type="text" ng-model="userName" id="m" /></br>
+				Gamename:</br>
+				<input type="text" ng-model="gameName" /></br>
+				<button type="submit" class="btn btn-primary">Let's play</button>
+			</div>
+		</form>
+	</div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io();
+	  $('form').submit(function(){
+	      socket.emit('Incoming connection', $('#m').val());
+	      $('#m').val('');
+	      return false;
+	    });
+	  	socket.on('Incoming connection', function(u){
+	    	$('#players').append($('<li>').text(u));
+	  	});
+	</script>
 </div>
