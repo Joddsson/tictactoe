@@ -38,11 +38,16 @@ module.exports = function(history){
 		}
 	}
 
-	function gameWon(){
+	function gameWon(symbol){
+		if(board[0][0] ===  symbol && board[1][1] === symbol && board[2][2] === symbol ||
+			board[2][0] ===  symbol && board[1][1] === symbol && board[0][2] === symbol)
+		{
+			moveCount = 0;
+			return true;
+		}
 	    return _.reduce(gameScore, function(won, score){
-	    	console.log("won: " + won + ", " + "score: " + score);
-	      
-	      return won || score === 3 || score === -3;
+	    	//console.log("won: " + won + ", " + "score: " + score);
+			return won || score === 3 || score === -3;
 
 	    }, false);
 	  }
@@ -73,10 +78,7 @@ module.exports = function(history){
 			return false;
 		},
 		illegalMove: function(coords){
-			if(board[coords[0]][coords[1]] !== ''){
-				return true;
-			}
-			return false;
+			return !!board[coords[0]][coords[1]];
 		}
 	}
 };

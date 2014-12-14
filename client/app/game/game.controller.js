@@ -7,7 +7,6 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
     $scope.identifier = Math.floor((Math.random() * 10000) + 1);
 
     var changeTurn = function (){
-        console.log(nextTurn);
         if(nextTurn === 'X'){
             nextTurn        = 'O';
             currentSymbol   = 'X';
@@ -42,9 +41,13 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             console.log(data);
         });
     };
+
     /* jshint ignore:start */
     socket.on('moveMade', function(co){
-        $('#' + co + ' p').text(nextTurn);
+        //console.log("++++++++++" + $('#' + co + ' p').text());
+        if($('#' + co + ' p').text() === ''){
+            $('#' + co + ' p').text(nextTurn);
+        }
     /* jshint ignore:end */
         changeTurn();
     /* jshint ignore:start */

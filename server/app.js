@@ -33,7 +33,6 @@ io.on('connection', function(socket){
 		io.emit('Incoming connection', u);
 	});
 	socket.on('moveMade', function(co){
-		console.log('move: ' + co);
 		io.emit('moveMade', co);
 	});
 });
