@@ -27,7 +27,7 @@ module.exports = function(history){
 			gameScore[3 + col]	+= point;
 
 			if(row === col){
-				gameScore[2 * board] += point;
+				gameScore[2 * 3] += point;
 			}
 
       		if (3 - 1 - col === row) gameScore[2*3 + 1] += point;
@@ -39,18 +39,12 @@ module.exports = function(history){
 	}
 
 	function gameWon(symbol){
-		if(board[0][0] ===  symbol && board[1][1] === symbol && board[2][2] === symbol ||
-			board[2][0] ===  symbol && board[1][1] === symbol && board[0][2] === symbol)
-		{
-			moveCount = 0;
-			return true;
-		}
 	    return _.reduce(gameScore, function(won, score){
 	    	//console.log("won: " + won + ", " + "score: " + score);
 			return won || score === 3 || score === -3;
 
 	    }, false);
-	  }
+	}
 
 	function processEvents(history) {
 		_.each(history, processEvent);
@@ -76,10 +70,17 @@ module.exports = function(history){
 				return true;
 			}
 			return false;
-		},
-		illegalMove: function(coords){
-			return !!board[coords[0]][coords[1]];
 		}
+		/*illegalMove: function(coords){
+			//console.log(!!board[coords[0]][coords[1]]);
+			var sumt = document.getElementsByClassName('box');
+
+			console.log("sdsaasdasd" + sumt.value);
+			if($('.box p').text() !== ''){
+				console.log("yoloool");
+			}
+			//return !!board[coords[0]][coords[1]];
+		}*/
 	}
 };
 

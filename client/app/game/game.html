@@ -1,7 +1,6 @@
 <div ng-app="tictactoeApp">
 	<div ng-include="'components/navbar/navbar.html'"></div>
 	<div class="grid">
-		<ul id="players"></ul>
 		<div class="row">
 			<div class="col-md-4 box" id="nr1" ng-click="sum('nr1', [0,0])"><p></p></div>
 			<div class="col-md-4 box" id="nr2" ng-click="sum('nr2', [0,1])"><p></p></div>
@@ -18,6 +17,7 @@
 			<div class="col-md-4 box" id="nr9" ng-click="sum('nr9', [2,2])"><p></p></div>
 		</div>
 	</div>
+	<p class="winner">Winner: </p>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket 	= io();
@@ -26,6 +26,11 @@
 	  	socket.on('Incoming connection', function(u){
 	  		console.log("user: " + u);
 	    	$('#players').append($('<li>').text(u));
+	  	});
+
+	  	socket.on('gameWon', function(winSymbol){
+	  		console.log("yoloswag" + winSymbol);
+	  		$('.winner').append(winSymbol);
 	  	});
 	</script>
 </div>

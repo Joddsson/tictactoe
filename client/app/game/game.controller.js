@@ -1,10 +1,23 @@
+/* jshint ignore:start */
 'use strict';
 
 var app     = angular.module('tictactoeApp');
 app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $state) {
     var nextTurn = 'X';
     var currentSymbol = 'X';
-    $scope.identifier = Math.floor((Math.random() * 10000) + 1);
+    var guid = (function() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+                   .toString(16)
+                   .substring(1);
+      }
+      return function() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+               s4() + '-' + s4() + s4() + s4();
+      };
+    })();
+
+    $scope.identifier = guid();
 
     var changeTurn = function (){
         if(nextTurn === 'X'){
@@ -16,43 +29,6 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             currentSymbol   = 'O';
         }
     };
-
-    $scope.sum = function(box, coords){
-        var MakeMoveCmd = 
-        {
-            cmd: 'MakeMove',
-            user: 'userName',
-            name: 'The first game',
-            timeStamp: '2014-12-02T11:29:29',
-            move: {
-                coordinates: coords,
-                symbol: currentSymbol
-            } 
-        };
-        /* jshint ignore:start */
-        socket.emit('moveMade', box);
-        /* jshint ignore:end */
-
-        $http.post('/api/makeMove', MakeMoveCmd)
-        .success(function(data) {
-            console.log(data);
-        })
-        .error(function(data){
-            console.log(data);
-        });
-    };
-
-    /* jshint ignore:start */
-    socket.on('moveMade', function(co){
-        //console.log("++++++++++" + $('#' + co + ' p').text());
-        if($('#' + co + ' p').text() === ''){
-            $('#' + co + ' p').text(nextTurn);
-        }
-    /* jshint ignore:end */
-        changeTurn();
-    /* jshint ignore:start */
-    });
-    /* jshint ignore:end */
 
     $scope.createGame = function(){
         var CreateGameCmd = 
@@ -80,8 +56,47 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             console.log(data);      
         })
         .error(function(data) {
-            console.log(data);          
+            console.log(data);
         });
     };
+    
+    $scope.sum = function(box, coords){
+        var MakeMoveCmd = 
+        {
+            cmd: 'MakeMove',
+            user: 'userName',
+            name: 'The first game',
+            timeStamp: '2014-12-02T11:29:29',
+            move: {
+                coordinates: coords,
+                symbol: currentSymbol
+            } 
+        };
+        
+        socket.emit('moveMade', box);
+
+        $http.post('/api/makeMove', MakeMoveCmd)
+        .success(function(data) {
+            //console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].event === 'GameWon'){
+                    socket.emit('gameWon', data[i].move.symbol);
+                }
+                console.log(data[i]);
+            }
+        })
+        .error(function(data){
+            console.log(data);
+        });
+    };
+
+
+    socket.on('moveMade', function(co){
+        if($('#' + co + ' p').text() === ''){
+            $('#' + co + ' p').text(nextTurn);
+        }
+        changeTurn();
+    });
 });
+/* jshint ignore:end */
 

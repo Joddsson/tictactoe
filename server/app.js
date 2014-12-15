@@ -35,6 +35,10 @@ io.on('connection', function(socket){
 	socket.on('moveMade', function(co){
 		io.emit('moveMade', co);
 	});
+	socket.on('gameWon', function(winSymbol){
+		console.log("in emit");
+		io.emit('gameWon', winSymbol);
+	});
 });
 
 app.eventStore = require('./eventstore/memorystore')();

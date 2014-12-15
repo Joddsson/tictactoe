@@ -5,7 +5,6 @@ module.exports = function(history){
 
 	return {
 		executeCommand: function(cmd){
-
 			var cmdHandlers = {
 				"CreateGame": function(cmd){
 					return [{
@@ -47,7 +46,7 @@ module.exports = function(history){
 					}];
 				},
 				"MakeMove": function(cmd){
-					if(gameState.illegalMove(cmd.move.coordinates)){
+					/*if(gameState.illegalMove(cmd.move.coordinates)){
 						return [{
 							event: "IllegalMove",
 							user: cmd.user,
@@ -55,8 +54,8 @@ module.exports = function(history){
 							timeStamp: cmd.timeStamp,
 							move: cmd.move
 						}];
-					}
-
+					}*/
+					
 					var events = [{
 						event: "MoveMade",
 						// The user how attempted to make the move.
@@ -75,7 +74,7 @@ module.exports = function(history){
 							name: cmd.name,
 							timeStamp: cmd.timeStamp,
 							move: cmd.move
-						})
+						});
 					}
 					if(gameState.gameTie()){
 						events.push(
