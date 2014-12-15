@@ -290,7 +290,7 @@ describe('MakeMove command', function(){
 		]; 
 	});*/
 
-	it('should emit the illegal move event if player tries an illegal move', function(){
+	/*it('should emit the illegal move event if player tries an illegal move', function(){
 		given 	= [
 			createEvent, joinEvent,
 			moveEvent([0,0], "X")
@@ -322,5 +322,5 @@ describe('MakeMove command', function(){
 				symbol: "X"
 			}
 		}];
-	});
+	});*/
 }); 
