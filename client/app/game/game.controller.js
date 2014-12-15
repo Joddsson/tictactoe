@@ -4,7 +4,6 @@
 var app     = angular.module('tictactoeApp');
 app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $state) {
     var nextTurn = 'X';
-    var currentSymbol = 'X';
     var guid = (function() {
       function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)
@@ -18,15 +17,12 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
     })();
 
     $scope.identifier = guid();
-
     var changeTurn = function (){
         if(nextTurn === 'X'){
             nextTurn        = 'O';
-            currentSymbol   = 'X';
         }
         else{
             nextTurn        = 'X';
-            currentSymbol   = 'O';
         }
     };
 
@@ -69,7 +65,7 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             timeStamp: '2014-12-02T11:29:29',
             move: {
                 coordinates: coords,
-                symbol: currentSymbol
+                symbol: nextTurn
             } 
         };
         
@@ -89,7 +85,6 @@ app.controller('GameCtrl', function ($scope, $http, $stateParams, gameFactory, $
             console.log(data);
         });
     };
-
 
     socket.on('moveMade', function(co){
         if($('#' + co + ' p').text() === ''){
