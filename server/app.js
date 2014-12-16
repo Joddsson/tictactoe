@@ -36,8 +36,12 @@ io.on('connection', function(socket){
 		io.emit('moveMade', co);
 	});
 	socket.on('gameWon', function(winSymbol){
-		console.log("in emit");
+		console.log("in game won server side");
 		io.emit('gameWon', winSymbol);
+	});
+	socket.on('opponentFound', function(){
+		console.log('in opponentFound');
+		io.emit('opponentFound');
 	});
 });
 

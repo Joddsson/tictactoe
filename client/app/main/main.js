@@ -8,9 +8,14 @@ app.config(function ($stateProvider) {
 		templateUrl: 'app/main/main.html',
 		controller: 'MainCtrl'
 	})
-	.state('game', {
-		url: '/game/{gameId}',
-		templateUrl: 'app/game/game.html',
-		controller: 'GameCtrl'
+	.state('play', {
+		url: '/play/{gameId}',
+		templateUrl: 'app/play/play.html',
+		controller: 'PlayCtrl'
+	})
+	.state('join', {
+		url: '/join/{gameId}',
+		templateUrl: 'app/play/play.html',
+		controller: 'PlayCtrl'
 	});
 });

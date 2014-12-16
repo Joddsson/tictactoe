@@ -40,7 +40,7 @@ module.exports = function(history){
 
 	function gameWon(symbol){
 	    return _.reduce(gameScore, function(won, score){
-	    	//console.log("won: " + won + ", " + "score: " + score);
+	    	console.log("won: " + won + ", " + "score: " + score);
 			return won || score === 3 || score === -3;
 
 	    }, false);
