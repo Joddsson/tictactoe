@@ -1,12 +1,6 @@
-<div ng-app="tictactoeApp">
-	<div ng-include="'components/navbar/navbar.html'"></div>
-	<!--<div class="text-center" ng-show="!grid && !joinForm">
-		<h3>Share this URL with a worthy opponent</h3>
-		<p><strong>{{joinUrl}}</strong></p>
-		<p>And now we play the waiting game...</p>
-	</div>-->
-	<div ng-show="joinForm">
-		<form class="userNameForm" ng-submit="joinGame()">
+<div class="play-container">
+	<div class="joinGameForm" ng-show="joinForm">
+		<form ng-submit="joinGame()">
 			<div>
 				Username:</br>
 				<input type="text" ng-model="opponentName" /></br>
@@ -31,9 +25,9 @@
 			<div class="col-md-4 box" id="nr9" ng-click="sum('nr9', [2,2])"><p></p></div>
 		</div>
 	</div>
-	<div class="text-center" ng-show="!joinForm && grid">
+	<div class="shareUrl text-center" ng-show="!joinForm && grid">
 		<h3>Share this URL with a worthy opponent</h3>
-		<p><strong>{{joinUrl}}</strong></p>
+		<p id="joinUrl"><strong>{{joinUrl}}</strong></p>
 		<p class="winner">Winner: </p>
 	</div>
 	<script src="/socket.io/socket.io.js"></script>

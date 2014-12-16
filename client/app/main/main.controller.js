@@ -20,7 +20,7 @@ app.controller('MainCtrl', function ($scope, $http, $state, gameFactory) {
 	
 	$('.createGameForm').submit(function(){
 		/* jshint ignore:start */
-		socket.emit('Incoming connection', $('#m').val());
+		socket.emit('Incoming connection', $('#createrUserName').val());
 		/* jshint ignore:end */
 	    return false;
 	});

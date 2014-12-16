@@ -4,22 +4,23 @@
 var app     = angular.module('tictactoeApp');
 app.controller('PlayCtrl', function ($rootScope, $scope, $http, $stateParams, gameFactory, $state, $location) {
     var nextTurn                    = 'X';
+    var socket = io();
     $scope.grid, $scope.joinForm    = false; 
     $scope.joinUrl                  = $location.host() + ':' + $location.port() + '/join/' + $stateParams.gameId;
 
-    socket.on('Incoming connection', function(u){
-        console.log("user: " + u);
-    });
 
     socket.on('gameWon', function(winSymbol){
-        $('.winner').append(winSymbol);
+
     });
 
-    socket.on('opponentFound', function(){
-        console.log('in show grid');
-        $('.grid').show();
+    socket.on('Incoming connection', function(u){
+        console.log("user: " + u);
+        //$scope.playerOne = u;
+    });
+
+    socket.on('opponentFound', function(opponentName){
+        //$scope.playerTwo = opponentName;
         $scope.grid = true;
-        console.log("after grid");
         $scope.$apply();
     });
 
@@ -40,8 +41,9 @@ app.controller('PlayCtrl', function ($rootScope, $scope, $http, $stateParams, ga
     }
 
     $scope.joinGame = function(){
+        console.log($scope.opponentName);
         $state.go('play', { gameId: $state.params.gameId });
-        socket.emit('opponentFound');
+        socket.emit('opponentFound', $scope.opponentName);
         $scope.grid = true;
     }
 
@@ -58,7 +60,7 @@ app.controller('PlayCtrl', function ($rootScope, $scope, $http, $stateParams, ga
             } 
         };
         
-        socket.emit('moveMade', box);
+        //socket.to($stateParams.gameId).emit('moveMade', box, $stateParams.gameId);
 
         $http.post('/api/makeMove', MakeMoveCmd)
         .success(function(data) {
@@ -67,6 +69,7 @@ app.controller('PlayCtrl', function ($rootScope, $scope, $http, $stateParams, ga
             for (var i = 0; i < data.length; i++) {
                 if(data[i].event === 'GameWon'){
                     socket.emit('gameWon', data[i].move.symbol);
+                    $('.winner').append(data[i].move.symbol);
                 }
                 console.log(data[i]);
             }
@@ -76,8 +79,8 @@ app.controller('PlayCtrl', function ($rootScope, $scope, $http, $stateParams, ga
         });
     };
 
-    socket.on('moveMade', function(co){
-
+    socket.on('moveMade', function(co, id) {
+        console.log(id);
         if($('#' + co + ' p').text() === ''){
             $('#' + co + ' p').text(nextTurn);
         }

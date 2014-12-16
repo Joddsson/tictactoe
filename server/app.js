@@ -29,19 +29,21 @@ server.listen(9000, function(){
 io.on('connection', function(socket){
 	console.log("connected");
 	socket.on('Incoming connection', function(u){
-		console.log('user: ' + u);
+		console.log('userasdasd: ' + u);
 		io.emit('Incoming connection', u);
 	});
-	socket.on('moveMade', function(co){
-		io.emit('moveMade', co);
+	socket.on('moveMade', function(co, gameId){
+		console.log('gamdadi: ' + gameId);
+		socket.join(gameId);
+		io.emit('moveMade', co, gameId);
 	});
 	socket.on('gameWon', function(winSymbol){
 		console.log("in game won server side");
 		io.emit('gameWon', winSymbol);
 	});
-	socket.on('opponentFound', function(){
+	socket.on('opponentFound', function(opponentName){
 		console.log('in opponentFound');
-		io.emit('opponentFound');
+		io.emit('opponentFound', opponentName);
 	});
 });
 
