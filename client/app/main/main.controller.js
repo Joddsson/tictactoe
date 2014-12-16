@@ -1,13 +1,27 @@
 'use strict';
+//Game id generator.
 
 var app = angular.module('tictactoeApp');
+var guid = (function() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+               .toString(16)
+               .substring(1);
+  }
+  return function() {
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+           s4() + '-' + s4() + s4() + s4();
+  };
+})();
 
 app.controller('MainCtrl', function ($scope, $http, $state, gameFactory) {
 	$scope.awesomeThings 	= [];
 	var identifier 			= guid();
 	
 	$('.createGameForm').submit(function(){
+		/* jshint ignore:start */
 		socket.emit('Incoming connection', $('#m').val());
+		/* jshint ignore:end */
 	    return false;
 	});
 
@@ -50,16 +64,3 @@ app.controller('MainCtrl', function ($scope, $http, $state, gameFactory) {
         console.log(data);
     });
 });
-
-//Game id generator.
-var guid = (function() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-               .toString(16)
-               .substring(1);
-  }
-  return function() {
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-           s4() + '-' + s4() + s4() + s4();
-  };
-})();
