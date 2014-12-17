@@ -21,8 +21,8 @@ npm install --production
 echo Building docker image
 docker build -t joddsson/tictactoe .
 
-echo Accessing acceptance test server
-ssh root@178.62.224.49'
+echo Accessing acceptance server
+ssh root@178.62.224.49 '
 echo "Successful ssh"
 
 docker kill tictactoe
