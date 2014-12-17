@@ -28,6 +28,8 @@ server.listen(9000, function(){
 
 io.on('connection', function(socket){
 	console.log("connected");
+	var tictactoehandler = require('./model/tictactoe/tictactoeState')();
+		tictactoehandler.clear();
 	socket.on('Incoming connection', function(u){
 		console.log('userasdasd: ' + u);
 		io.emit('Incoming connection', u);
@@ -44,6 +46,10 @@ io.on('connection', function(socket){
 	socket.on('opponentFound', function(opponentName){
 		console.log('in opponentFound');
 		io.emit('opponentFound', opponentName);
+	});
+	socket.on('disconnect', function(){
+		
+		console.log('disconnect');
 	});
 });
 

@@ -8,8 +8,10 @@ var TictactoePage = function() {
     this.grid           = this.container.element(by.css('.grid'));
     this.shareURL       = this.container.element(by.css('.shareUrl'));
 
-    this.winner     = this.container.element(by.css('.winner'));
-    //this.gameUrl    = this.shareUrl.element(by.css('#joinUrl'));
+    this.winner         = this.container.element(by.css('.winner'));
+    this.gameUrl        = this.container.element(by.css('#joinUrl'));
+    this.opponentName   = this.container.element(by.css('#opponentName'));
+    this.joinGameButton = this.joinGameForm.element(by.css('#joinGameButton'));
 
     this.x0y0 = this.grid.element(by.css('#nr1'));
     this.x0y1 = this.grid.element(by.css('#nr2'));

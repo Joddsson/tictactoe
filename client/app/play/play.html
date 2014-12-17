@@ -1,13 +1,4 @@
 <div class="play-container">
-	<div class="joinGameForm" ng-show="joinForm">
-		<form ng-submit="joinGame()">
-			<div>
-				Username:</br>
-				<input type="text" ng-model="opponentName" /></br>
-				<button type="submit" class="btn btn-primary">Let's play</button>
-			</div>
-		</form>
-	</div>
 	<div class="grid text-center" id="ab" ng-show="grid">
 		<div class="row">
 			<div class="col-md-4 box" id="nr1" ng-click="sum('nr1', [0,0])"><p></p></div>
@@ -27,11 +18,8 @@
 	</div>
 	<div class="shareUrl text-center" ng-show="!joinForm && grid">
 		<h3>Share this URL with a worthy opponent</h3>
-		<p id="joinUrl"><strong>{{joinUrl}}</strong></p>
+		<a id="joinUrl" href="{{joinUrl}}">Share game</a>
 		<p class="winner">Winner: </p>
 	</div>
 	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io();
-	</script>
 </div>

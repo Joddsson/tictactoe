@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
 	})
 	.state('join', {
 		url: '/join/{gameId}',
-		templateUrl: 'app/play/play.html',
+		templateUrl: 'app/join/join_game.html',
 		controller: 'PlayCtrl'
 	});
 });

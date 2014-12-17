@@ -15,20 +15,31 @@ describe('Tictactoe game play', function () {
 	}
 
 	it('emit a game won if player wins in one player mode', function () {
-		createPage.userName.sendKeys('Joddsson');
-		createPage.gameName.sendKeys('Ultimate game');
+		createPage.userName.sendKeys('koddsson');
+		createPage.gameName.sendKeys('Second game');
 		createPage.createGameButton.click();
 
 		var tictactoe = require('./tictactoe.po');
-		expect(tictactoe.grid).toBeDefined();
+		tictactoe.gameUrl.getAttribute('href').then(function(gameUrl){
+			browser.getAllWindowHandles().then(function(handles){
+				var creatorHandle = handles[0];
+				var joinHandle = 'joinWindow';
 
-		placeMove(tictactoe.x0y0, 'X');
+				browser.executeScript('window.open("' + gameUrl + '", ' + '"' + joinHandle + '"' + ')');
+				browser.sleep(2000);
+				//tictactoe.opponentName.sendKeys('Valli');
+				tictactoe.joinGameButton.click();
+			});
+		});
+
+
+		/*placeMove(tictactoe.x0y0, 'X');
 		placeMove(tictactoe.x0y1, 'O');
 		placeMove(tictactoe.x1y1, 'X');
 		placeMove(tictactoe.x1y2, 'O');
 		placeMove(tictactoe.x2y2, 'X');
 
-		expect(tictactoe.winner.getText()).toBe('Winner: X');
+		expect(tictactoe.winner.getText()).toBe('Winner: X');*/
 	});
 
 });

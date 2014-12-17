@@ -1,6 +1,7 @@
 var _ = require('lodash');
 
 module.exports = function(history){
+	console.log('dmer');
 	var gameFull 	= false;
 	var gameOver 	= false;
 	var gameCreated	= false;
@@ -8,6 +9,17 @@ module.exports = function(history){
 	var board 		= [["", "", ""], ["", "", ""], ["", "", ""]];
 	var point 		= 0;
 	var moveCount	= 0;
+
+	function clear() {
+		console.log('adsd');
+		gameFull 	= false;
+		gameOver 	= false;
+		gameCreated	= false;
+		gameScore	= [0,0,0,0,0,0,0,0,0];
+		board 		= [["", "", ""], ["", "", ""], ["", "", ""]];
+		point 		= 0;
+		moveCount	= 0;
+	}
 
 	function processEvent(event){
 		if(event.event === "GameCreated"){
@@ -17,7 +29,8 @@ module.exports = function(history){
 			gameFull = true;
 		}
 		if(event.event === "MoveMade"){
-			var point = event.move.side==='X'? 1 : -1;	
+			//console.log('sweg' + event.move);
+			var point = event.move.symbol==='X'? 1 : -1;	
 
 			var row = event.move.coordinates[0];
 			var col = event.move.coordinates[1];
@@ -40,7 +53,7 @@ module.exports = function(history){
 
 	function gameWon(symbol){
 	    return _.reduce(gameScore, function(won, score){
-	    	console.log("won: " + won + ", " + "score: " + score);
+	    	//console.log("won: " + won + ", " + "score: " + score);
 			return won || score === 3 || score === -3;
 
 	    }, false);
@@ -55,6 +68,7 @@ module.exports = function(history){
 	return {
 		processEvents: processEvents,
 
+		clear: clear,
 		gameCreated: function(){
 			return gameCreated;
 		},

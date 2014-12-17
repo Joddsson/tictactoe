@@ -3,18 +3,14 @@
 
 var app     = angular.module('tictactoeApp');
 app.controller('PlayCtrl', function ($rootScope, $scope, $http, $stateParams, gameFactory, $state, $location) {
-    var nextTurn                    = 'X';
-    var socket = io();
-    $scope.grid, $scope.joinForm    = false; 
-    $scope.joinUrl                  = $location.host() + ':' + $location.port() + '/join/' + $stateParams.gameId;
-
-
-    socket.on('gameWon', function(winSymbol){
-
-    });
+    var nextTurn    = 'X';
+    var socket      = io();
+    $scope.grid     = false 
+    $scope.joinForm = false; 
+    $scope.joinUrl  = 'http://' + $location.host() + ':' + $location.port() + '/join/' + $stateParams.gameId;
 
     socket.on('Incoming connection', function(u){
-        console.log("user: " + u);
+        //console.log("user: " + u);
         //$scope.playerOne = u;
     });
 
@@ -60,7 +56,7 @@ app.controller('PlayCtrl', function ($rootScope, $scope, $http, $stateParams, ga
             } 
         };
         
-        //socket.to($stateParams.gameId).emit('moveMade', box, $stateParams.gameId);
+        socket.emit('moveMade', box, $stateParams.gameId);
 
         $http.post('/api/makeMove', MakeMoveCmd)
         .success(function(data) {
@@ -80,12 +76,11 @@ app.controller('PlayCtrl', function ($rootScope, $scope, $http, $stateParams, ga
     };
 
     socket.on('moveMade', function(co, id) {
-        console.log(id);
         if($('#' + co + ' p').text() === ''){
             $('#' + co + ' p').text(nextTurn);
         }
         changeTurn();
     });
 });
-/* jshint ignore:end */
+/* jshint ignore:end */ 
 
