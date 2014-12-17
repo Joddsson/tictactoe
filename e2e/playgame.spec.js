@@ -2,10 +2,11 @@
 
 describe('Tictactoe game play', function () {
 	var createPage;
-
+	var join;
 	beforeEach(function () {
 		browser.get('/');
 		createPage = require('./creategame.po');
+		join = require('./joingame.po');
 	});
 
 	function placeMove(cellElement, expected) {
@@ -20,7 +21,6 @@ describe('Tictactoe game play', function () {
 		createPage.createGameButton.click();
 
 		var tictactoe = require('./tictactoe.po');
-		var join = require('./joingame.po');
 		tictactoe.gameUrl.getAttribute('href').then(function(gameUrl){
 			browser.getAllWindowHandles().then(function(handles){
 				var creatorHandle = handles[0];
@@ -28,7 +28,7 @@ describe('Tictactoe game play', function () {
 
 				browser.executeScript('window.open("' + gameUrl + '", ' + '"' + joinHandle + '"' + ')');
 				browser.sleep(2000);
-				//tictactoe.opponentName.sendKeys('Valli');
+				join.opponentName.sendKeys('Valli');
 				join.joinGameButton.click();
 			});
 		});
