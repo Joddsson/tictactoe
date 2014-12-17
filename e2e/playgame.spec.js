@@ -28,20 +28,6 @@ describe('Tictactoe game play', function () {
 		placeMove(tictactoe.x2y2, 'X');
 
 		expect(tictactoe.winner.getText()).toBe('Winner: X');
-		/*tictactoe.gameUrl.getAttribute('href').then(function(gameUrl){
-			browser.getAllWindowHandles().then(function(handles){
-				browser.manage().timeouts().implicitlyWait(5000);
-				var creatorHandle = handles[0];
-				var joinHandle = 'joinWindow';
-
-				browser.executeScript('window.open("' + gameUrl + '", ' + '"' + joinHandle + '"' + ')');
-				browser.sleep(2000);
-				element.all(by.css('#opponentName')).get(0).sendKeys('Valli');
-				//join.joinGameButton.click();
-			});
-		});*/
-
-
 	});
 
 });
