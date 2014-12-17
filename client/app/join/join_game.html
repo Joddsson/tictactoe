@@ -1,10 +1,9 @@
-<div class="join-container">
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="main-container">
 	<form class="theForm" ng-submit="joinGame()">
-		<div>
 			Username:</br>
 			<input type="text" id="opponentName" ng-model="opponentName" /></br>
 			<button type="submit" class="btn btn-primary" id="joinGameButton">Let's play</button>
-		</div>
 	</form>
-	<script src="/socket.io/socket.io.js"></script>
 </div>
+<script src="/socket.io/socket.io.js"></script>

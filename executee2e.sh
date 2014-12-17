@@ -1,2 +1,2 @@
-webdriver-mamager update
+webdriver-manager update
 protractor protractor.conf.js
