@@ -1,10 +1,12 @@
-<div class="joinGameForm">
-	<form ng-submit="joinGame()">
-		<div>
-			Username:</br>
-			<input type="text" id="opponentName" ng-model="opponentName" /></br>
-			<button type="submit" class="btn btn-primary" id="joinGameButton">Let's play</button>
-		</div>
-	</form>
-	<script src="/socket.io/socket.io.js"></script>
+<div class="join-container">
+	<div class="joinGameForm">
+		<form ng-submit="joinGame()">
+			<div>
+				Username:</br>
+				<input type="text" id="opponentName" ng-model="opponentName" /></br>
+				<button type="submit" class="btn btn-primary" id="joinGameButton">Let's play</button>
+			</div>
+		</form>
+		<script src="/socket.io/socket.io.js"></script>
+	</div>
 </div>

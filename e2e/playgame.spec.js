@@ -20,6 +20,7 @@ describe('Tictactoe game play', function () {
 		createPage.createGameButton.click();
 
 		var tictactoe = require('./tictactoe.po');
+		var join = require('./joingame.po');
 		tictactoe.gameUrl.getAttribute('href').then(function(gameUrl){
 			browser.getAllWindowHandles().then(function(handles){
 				var creatorHandle = handles[0];
@@ -28,7 +29,7 @@ describe('Tictactoe game play', function () {
 				browser.executeScript('window.open("' + gameUrl + '", ' + '"' + joinHandle + '"' + ')');
 				browser.sleep(2000);
 				//tictactoe.opponentName.sendKeys('Valli');
-				tictactoe.joinGameButton.click();
+				join.joinGameButton.click();
 			});
 		});
 
